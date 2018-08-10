@@ -7,19 +7,23 @@ function makeGame(playerCount) {
   const MakeDeck = () => {
     var deck= Array(72).fill(null);
     var index = 0;
-    var code = 'a';
+    var code = {ID:0,type:'a'};
     for (var i = 0;i<7;i++) {
       for (var j = 0;j<9;j++) {
         deck[index]=code;
         index++;
+        code = nextCard(code);
       }
-      code=nextCard(code);
+      code=nextType(code);
     }
+    code = setType(code,'1');
     for (i = 1;i<4;i++) {
       for (j = 0;j<3;j++) {
-        deck[index] = i;
+        deck[index] = code;
         index++;
+        code = nextCard(code);
       }
+      code=nextType(code);
     }
     return deck;
   };
@@ -44,8 +48,24 @@ function makeGame(playerCount) {
       },
     },
   });
+  
+  function nextType(current){
+    return {
+		...current,
+		type:String.fromCharCode(current.type.charCodeAt(0)+1),
+	};
+  }
   function nextCard(current){
-    return String.fromCharCode(current.charCodeAt(0)+1);
+    return {
+      ...current,
+      ID:current.ID+1,
+    }
+  }
+  function setType(current,type){
+    return {
+		...current,
+		type:type,
+	};
   }
 
   return Herb;
