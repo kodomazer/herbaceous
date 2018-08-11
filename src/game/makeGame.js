@@ -5,25 +5,22 @@ function makeGame(playerCount) {
   // TODO use playerCount to set up different Game rules here
 
   const MakeDeck = () => {
-    var deck= Array(72).fill(null);
-    var index = 0;
-    var code = {ID:0,type:'a'};
+    var deck= [];
+    var currentCard = {id:0,type:'a'};
     for (var i = 0;i<7;i++) {
       for (var j = 0;j<9;j++) {
-        deck[index]=code;
-        index++;
-        code = nextCard(code);
+        deck.push(currentCard);
+        currentCard = nextCard(currentCard);
       }
-      code=nextType(code);
+      currentCard=nextCardType(currentCard);
     }
-    code = setType(code,'1');
+    currentCard = setCardType(currentCard,'1');
     for (i = 1;i<4;i++) {
       for (j = 0;j<3;j++) {
-        deck[index] = code;
-        index++;
-        code = nextCard(code);
+        deck.push(currentCard);
+        currentCard = nextCard(currentCard);
       }
-      code=nextType(code);
+      currentCard=nextCardType(currentCard);
     }
     return deck;
   };
@@ -49,7 +46,7 @@ function makeGame(playerCount) {
     },
   });
   
-  function nextType(current){
+  function nextCardType(current){
     return {
 		...current,
 		type:String.fromCharCode(current.type.charCodeAt(0)+1),
@@ -58,10 +55,10 @@ function makeGame(playerCount) {
   function nextCard(current){
     return {
       ...current,
-      ID:current.ID+1,
+      id:current.id+1,
     }
   }
-  function setType(current,type){
+  function setCardType(current,type){
     return {
 		...current,
 		type:type,
