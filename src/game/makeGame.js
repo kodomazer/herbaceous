@@ -25,10 +25,24 @@ function makeGame(playerCount) {
     return deck;
   };
 
+  function MakePlayers(playerCount){
+	  let players = [];
+    for(let i = 1;i<=playerCount;i++){
+      players.push(makePlayer(i));
+    }
+    return players;
+  }
+  
   const Herb = Game({
     setup: () => {
       let deck = MakeDeck();
-      return {deck};
+	  let players = MakePlayers(playerCount);
+      return {
+        deck,
+        players,
+        communityGarden:[],
+        activeCard:null,
+      };
     },
 
     moves: {
@@ -65,6 +79,17 @@ function makeGame(playerCount) {
 	};
   }
 
+  function makePlayer(playerID){
+    return {
+      id:playerID,
+      privateGarden:[],
+      largePot:[],
+      woodenPlanter:[],
+      smallPots:[],
+      glassJar:[],
+    }
+  }
+  
   return Herb;
 };
 
