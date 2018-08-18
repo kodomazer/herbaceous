@@ -57,6 +57,93 @@ function makeGame(playerCount) {
         }
         return { ...G, deck }; // don't mutate original state.
       },
+      pass(G, ctx){
+        ctx.events.endPhase();
+        return G;
+      },
+      plantPrivate(G, ctx){
+        //Copy things we need to mutate
+        let active = ctx.currentPlayer;
+        let players = {...G.players};
+        let player = {...players[active]};
+        let privateGarden = [...player.privateGarden];
+        let communityGarden = [...G.communityGarden];
+        //draw a card from the deck
+        let draw = drawCard(G.deck);
+        
+        //add the first card to the private garden
+        privateGarden.push(G.activeCard);
+        //Add the next card to the Community
+        communityGarden.push(draw.card);
+        
+        //Update the player object and array
+        player.privateGarden = privateGarden;
+        players[active] = player;
+        
+        //Update game state
+        ctx.events.endPhase();
+        ctx.events.endTurn();
+        return {
+          ...G,
+          players,
+          deck:draw.deck,
+          communityGarden,
+          activeCard:null
+        };
+      },
+      plantCommunity(G, ctx){
+        //Copy things we need to mutate
+        let active = ctx.currentPlayer;
+        let players = {...G.players};
+        let player = {...players[active]};
+        let privateGarden = [...player.privateGarden];
+        let communityGarden = [...G.communityGarden];
+        //draw a card from the deck
+        let draw = drawCard(G.deck);
+        
+        //add the first card to the community garden
+        communityGarden.push(G.activeCard);
+        //Add the next card to the private garden
+        privateGarden.push(draw.card);
+        
+        //Update the player object and array
+        player.privateGarden = privateGarden;
+        players[active] = player;
+        
+        //Update game state
+        ctx.events.endPhase();
+        ctx.events.endTurn();
+        return {
+          ...G,
+          players,
+          deck:draw.deck,
+          communityGarden,
+          activeCard:null
+        };
+      },
+    },
+    flow: {
+      phases:[
+        {
+          name: "potting-phase",
+          allowedMoves: [
+            'pot',
+            'select',
+            'pass',
+          ],
+          onTurnBegin:(G, ctx)=>{
+            var draw = drawCard(G.deck);
+            return {...G,deck:draw.deck,activeCard:draw.card};
+          }
+        },
+        {
+          name: "planting",
+          allowedMoves: [
+            'plantPrivate',
+            'plantCommunity',
+          ],
+        },
+      ],
     },
   });
   
@@ -88,6 +175,10 @@ function makeGame(playerCount) {
       smallPots:[],
       glassJar:[],
     }
+  }
+  
+  function drawCard(deck){
+    return {deck:deck.slice(1,deck.length+1),card:deck[0]};
   }
   
   return Herb;
