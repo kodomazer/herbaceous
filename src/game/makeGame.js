@@ -168,7 +168,7 @@ function makeGame(playerCount) {
 
   function makePlayer(playerID){
     return {
-      id:playerID,
+      id:playerID.toString(),
       privateGarden:[],
       largePot:[],
       woodenPlanter:[],
