@@ -1,4 +1,5 @@
 import { Game } from 'boardgame.io/core';
+import potting from './potting';
 
 function makeGame(playerCount) {
   console.log('making game with '+playerCount+' players.');
@@ -121,6 +122,18 @@ function makeGame(playerCount) {
           activeCard:null
         };
       },
+      pot(G,ctx,cards,pot){
+        var selected = potting.sanitize(cards);
+        if(!
+          potting.validate(
+            selected,
+            G.players[ctx.currentPlayer].privateGarden,
+            G.communityGarden
+          )
+        )
+        return;
+        //TODO: Pot plants if valid
+      }
     },
     flow: {
       phases:[
