@@ -26,9 +26,9 @@ function makeGame(playerCount) {
   };
 
   function MakePlayers(playerCount){
-	  let players = [];
-    for(let i = 1;i<=playerCount;i++){
-      players.push(makePlayer(i));
+    let players = {};
+    for(let i = 0;i<playerCount;i++){
+      players[i]=makePlayer(i);
     }
     return players;
   }
@@ -168,7 +168,7 @@ function makeGame(playerCount) {
 
   function makePlayer(playerID){
     return {
-      id:playerID,
+      id:playerID.toString(),
       privateGarden:[],
       largePot:[],
       woodenPlanter:[],
