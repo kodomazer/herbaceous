@@ -12,7 +12,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "style": "lessc ./src/styles/less/app.less ./src/compiled.css"
   },
   "devDependencies": {
     "less": "^3.8.1"
