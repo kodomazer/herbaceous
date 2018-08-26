@@ -10,5 +10,5 @@ export default ({playerCount}) => {
     // multiplayer: true,
     // debug: false,
   });
-  return <ClientWithPlayers playerID={1}/>;
+  return <ClientWithPlayers playerID={'0'}/>;
 }

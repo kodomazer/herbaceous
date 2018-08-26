@@ -1,10 +1,12 @@
 import React from 'react';
 import Garden from './garden';
 
-export default ({onSelect, player: {id, privateGarden}}) => (
+export default ({onSelect, player: {id, privateGarden}={}, self}) => (
   <div onClick={()=>{}/*onSelect*/}>
-    <button onClick={onSelect}> Garden number {id} </button>
-    <Garden herbs={privateGarden}/>
+    <Garden
+      gardenName={self ? 'Your Garden' : 'Player ' + id + '\'s Private Garden'}
+      onSelect={onSelect}
+      herbs={privateGarden}/>
     {/*render pots*/}
   </div>
 )
