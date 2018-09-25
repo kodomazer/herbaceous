@@ -30,12 +30,45 @@ var potting = {
     if(check.length === 0)
       return true;
     return false;
-  }
+  },
+  tryPot(array,pot){
+    switch(pot){ //TODO: Use constants from a file instead of string literals
+      case 'largePot':
+        return validateLargePot(array);
+      case 'woodenPlanter':
+        return validateWoodenPlanter(array);
+      case 'smallPots':
+        return validateSmallPot(array);
+      case 'glassJar':
+        return validateGlassJar(array);
+    }
+    //If not a recognized Pot type, then 
+    return false;
+  },
   
 }
 
 function notCard(card){
   return function(val){return card.id !== val.id;}
+}
+
+function validateLargePot(array){
+  //All identical
+  return false;
+}
+function validateWoodenPlanter(array){
+  //All different
+  return false;
+}
+function validateSmallPot(array){
+  //Different pairs of identical
+  return false;
+}
+function validateGlassJar(array){
+  //any 3
+  if(array.length<=3)
+    return true;
+  return false;
 }
 
 export default potting
