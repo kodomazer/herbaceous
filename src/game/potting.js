@@ -12,6 +12,8 @@ var potting = {
     return _.uniq(arr);
   },
   validate(array,privateGarden,publicGarden){
+    if (array.length==0)
+      return false;
     let check = [...array];
     check =
       privateGarden.reduce(
@@ -42,7 +44,7 @@ var potting = {
       case 'glassJar':
         return validateGlassJar(array);
     }
-    //If not a recognized Pot type, then 
+    //If it isn't a valid pot, automatically fail
     return false;
   },
   
