@@ -54,18 +54,38 @@ function notCard(card){
   return function(val){return card.id !== val.id;}
 }
 
+
 function validateLargePot(array){
-  //All identical
-  return false;
+  var iD = array[0].id
+  var size = array.length
+  for(var i = 0;i<size;i++){
+    if(iD !== array[i].id)
+      return false;
+  }
+  return true;
 }
+
 function validateWoodenPlanter(array){
-  //All different
-  return false;
+  var lastID = null
+  var size = array.length
+  for(var i = 0;i<size;i++){
+    if(lastID === array[i].id)
+      return false;
+    lastID = array[i].id;
+  }
+  return true;
 }
+
 function validateSmallPot(array){
-  //Different pairs of identical
-  return false;
+  if(array.length%2===1)return false;
+  var pairCount = array.length/2;
+  for(let i = 0;i<pairCount;i++){
+    if(array[i*2].type!==array[i*2+1].type)
+      return false;
+  }
+  return true;
 }
+
 function validateGlassJar(array){
   //any 3
   if(array.length<=3)
