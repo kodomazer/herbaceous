@@ -51,7 +51,13 @@ var potting = {
 }
 
 function notCard(card){
-  return function(val){return card.id !== val.id;}
+  return function(val)
+    {
+      return !(
+        card.id === val.id &&
+        card.type === val.type
+        )
+    }
 }
 
 
