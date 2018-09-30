@@ -133,6 +133,28 @@ function makeGame(playerCount) {
         )
         return;
         //TODO: Pot plants if valid
+        var player = {...G.players[ctx.currentPlayer]};
+        player[pot] = selected;
+        player.privateGarden = player.privateGarden.filter(
+          (card) =>{
+            return selected.reduce((acc,sCard)=>{
+              return acc || (sCard.type===card.type && sCard.id === card.id)
+            },
+            false)
+          }
+        )
+        var publicGarden = G.publicGarden.filter(
+          (card) =>{
+            return selected.reduce((acc,sCard)=>{
+              return acc || (sCard.type===card.type && sCard.id === card.id)
+            },
+            false)
+          }
+        )
+        var players = {...G.players};
+        players[ctx.currentPlayer] = player;
+        return {...G,players,publicGarden};
+        
       }
     },
     flow: {
