@@ -124,31 +124,30 @@ function makeGame(playerCount) {
       },
       pot(G,ctx,cards,pot){
         var selected = potting.sanitize(cards);
-        if(!
-          potting.validate(
-            selected,
-            G.players[ctx.currentPlayer].privateGarden,
-            G.communityGarden
-          )
-        )
-        return;
+        if (!potting.validate(
+          selected,
+          G.players[ctx.currentPlayer].privateGarden,
+          G.communityGarden
+        )) {
+          return;
+        }
         //TODO: Pot plants if valid
         var player = {...G.players[ctx.currentPlayer]};
         player[pot] = selected;
         player.privateGarden = player.privateGarden.filter(
           (card) =>{
             return selected.reduce((acc,sCard)=>{
-              return acc || (sCard.type===card.type && sCard.id === card.id)
+              return acc && (sCard.type!==card.type || sCard.id !== card.id)
             },
-            false)
+            true)
           }
         )
         var publicGarden = G.publicGarden.filter(
           (card) =>{
             return selected.reduce((acc,sCard)=>{
-              return acc || (sCard.type===card.type && sCard.id === card.id)
+              return acc && (sCard.type!==card.type || sCard.id !== card.id)
             },
-            false)
+            true)
           }
         )
         var players = {...G.players};
