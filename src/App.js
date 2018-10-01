@@ -7,7 +7,7 @@ class App extends React.Component{
 	constructor(props){
 		super(props);
 		this.state = {
-			playerCount:0,
+			playerCount:2,
 		};
 	}
 	render(){
@@ -16,7 +16,7 @@ class App extends React.Component{
 				<select id="player-count" onChange={this.newGame}>
 					<option value={4}>4</option>
 					<option value={3}>3</option>
-					<option value={2}>2</option>
+					<option value={2} selected="selected">2</option>
 					<option value={1}>1</option>
 				</select>
 				<HerbClient playerCount={this.state.playerCount}/>
