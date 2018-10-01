@@ -12,7 +12,7 @@ var potting = {
     return _.uniq(arr);
   },
   validate(array,privateGarden,publicGarden){
-    if (array.length==0)
+    if (array.length === 0)
       return false;
     let check = [...array];
     check =
@@ -43,9 +43,10 @@ var potting = {
         return validateSmallPot(array);
       case 'glassJar':
         return validateGlassJar(array);
+      default:
+        //If it isn't a valid pot, automatically fail
+        return false;
     }
-    //If it isn't a valid pot, automatically fail
-    return false;
   },
   
 }
