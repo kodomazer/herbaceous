@@ -10,14 +10,16 @@ class App extends React.Component{
 			playerCount:2,
 		};
 	}
+
+	options = [1,2,3,4]
+	
 	render(){
 		return (
 			<div>
-				<select id="player-count" onChange={this.newGame}>
-					<option value={4}>4</option>
-					<option value={3}>3</option>
-					<option value={2} defaultValue>2</option>
-					<option value={1}>1</option>
+				<select id="player-count" onChange={this.newGame} value={this.state.playerCount}>
+					{this.options.map((value) => {
+						return <option value={value} key={value}>{value}</option>
+					})}
 				</select>
 				<HerbClient playerCount={this.state.playerCount}/>
 			</div>

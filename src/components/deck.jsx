@@ -1,5 +1,4 @@
 import React from 'react';
-import Herb from './herb';
 import Herbs from './herbs';
 
 export default ({activeCard, onDraw}) => {
@@ -14,9 +13,6 @@ export default ({activeCard, onDraw}) => {
         Draw
       </button>
       <Herbs herbs={[activeCard]}/>
-      {
-        // <Herb herb={activeCard}/>
-      }
     </div>
   );
 }

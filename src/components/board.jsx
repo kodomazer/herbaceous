@@ -24,7 +24,8 @@ class Board extends Component {
   }
 
   render() {
-    const playerID = this.props.playerID;
+    const playerID  = this.props.ctx.currentPlayer;
+    // const playerID = this.props.playerID;
     const players = this.props.G.players;
     const {selfPlayer, otherPlayers} = _.groupBy(players, ({id}) => id===playerID ? 'selfPlayer' : 'otherPlayers');
     return (
