@@ -1,4 +1,5 @@
 import { Game } from 'boardgame.io/core';
+import potting from './potting';
 
 function makeGame(playerCount) {
   console.log('making game with '+playerCount+' players.');
@@ -121,6 +122,39 @@ function makeGame(playerCount) {
           activeCard:null
         };
       },
+      pot(G,ctx,cards,pot){
+        var selected = potting.sanitize(cards);
+        if (!potting.validate(
+          selected,
+          G.players[ctx.currentPlayer].privateGarden,
+          G.communityGarden
+        )) {
+          return;
+        }
+        //TODO: Pot plants if valid
+        var player = {...G.players[ctx.currentPlayer]};
+        player[pot] = selected;
+        player.privateGarden = player.privateGarden.filter(
+          (card) =>{
+            return selected.reduce((acc,sCard)=>{
+              return acc && (sCard.type!==card.type || sCard.id !== card.id)
+            },
+            true)
+          }
+        )
+        var publicGarden = G.publicGarden.filter(
+          (card) =>{
+            return selected.reduce((acc,sCard)=>{
+              return acc && (sCard.type!==card.type || sCard.id !== card.id)
+            },
+            true)
+          }
+        )
+        var players = {...G.players};
+        players[ctx.currentPlayer] = player;
+        return {...G,players,publicGarden};
+        
+      }
     },
     flow: {
       phases:[
