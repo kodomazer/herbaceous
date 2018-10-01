@@ -179,6 +179,10 @@ function makeGame(playerCount) {
         },
       ],
     },
+    playerView: (G, ctx, playerID) => {
+      var deck = G.deck.length;
+      return {...G,deck};
+    },
   });
   
   function nextCardType(current){
