@@ -165,10 +165,6 @@ function makeGame(playerCount) {
             'select',
             'pass',
           ],
-          onTurnBegin:(G, ctx)=>{
-            var draw = drawCard(G.deck);
-            return {...G,deck:draw.deck,activeCard:draw.card};
-          }
         },
         {
           name: "planting",
@@ -176,6 +172,10 @@ function makeGame(playerCount) {
             'plantPrivate',
             'plantCommunity',
           ],
+          onTurnBegin:(G, ctx)=>{
+            var draw = drawCard(G.deck);
+            return {...G,deck:draw.deck,activeCard:draw.card};
+          },
         },
       ],
     },
