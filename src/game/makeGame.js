@@ -47,17 +47,6 @@ function makeGame(playerCount) {
     },
 
     moves: {
-      shuffle(G, ctx) {
-        let deck = [...G.deck]; // don't mutate original state.
-        for(var i = deck.length-1;i>0;i--){
-
-          var j = Math.floor(ctx.random.Number() * (i + 1));
-          var temp = deck[i];
-          deck[i] = deck[j];
-          deck[j] = temp;
-        }
-        return { ...G, deck }; // don't mutate original state.
-      },
       pass(G, ctx){
         ctx.events.endPhase();
         return G;
@@ -158,6 +147,12 @@ function makeGame(playerCount) {
     },
     flow: {
       phases:[
+        {
+          name: "startGame",
+          onTurnBegin:(G,ctx)=>{
+            return {...G,deck:ctx.random.Shuffle(G.deck)};
+          }
+        },
         {
           name: "potting-phase",
           allowedMoves: [
