@@ -1,6 +1,6 @@
-export default [
-  'largePot',
-  'woodenPlanter',
-  'smallPots',
-  'glassJar',
-]
+export default {
+  largePot: 'largePot',
+  woodenPlanter: 'woodenPlanter',
+  smallPots: 'smallPots',
+  glassJar: 'glassJar',
+}
