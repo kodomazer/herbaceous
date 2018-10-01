@@ -63,32 +63,35 @@ function notCard(card){
 
 
 function validateLargePot(array){
-  var iD = array[0].id
+  var type = array[0].type
   var size = array.length
   for(var i = 0;i<size;i++){
-    if(iD !== array[i].id)
+    if(type !== array[i].type)
       return false;
   }
   return true;
 }
 
 function validateWoodenPlanter(array){
-  var lastID = null
+  var lastType = null
   var size = array.length
   for(var i = 0;i<size;i++){
-    if(lastID === array[i].id)
+    if(lastType === array[i].type)
       return false;
-    lastID = array[i].id;
+    lastType = array[i].type;
   }
   return true;
 }
 
 function validateSmallPot(array){
   if(array.length%2===1)return false;
+  var lastType = null;
   var pairCount = array.length/2;
   for(let i = 0;i<pairCount;i++){
     if(array[i*2].type!==array[i*2+1].type)
       return false;
+    if(lastType === array[i*2].type) return false;
+    lastType = array[i*2].type;
   }
   return true;
 }
