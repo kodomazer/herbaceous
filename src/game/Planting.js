@@ -1,4 +1,4 @@
-import GameUtil from './util';
+import GameUtil from './GameUtil';
 
 var Planting = {
   moves(){
