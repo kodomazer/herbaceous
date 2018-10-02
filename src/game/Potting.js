@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-var potting = {
+var Potting = {
   sanitize(array){
     let arr = _.filter(array,(obj)=>{
       if(obj.hasOwnProperty('id'))
@@ -103,4 +103,4 @@ function validateGlassJar(array){
   return false;
 }
 
-export default potting
+export default Potting

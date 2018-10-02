@@ -1,6 +1,6 @@
 import { Game } from 'boardgame.io/core';
-import potting from './potting';
-import Planting from './planting';
+import Potting from './Potting';
+import Planting from './Planting';
 
 function makeGame(playerCount) {
   console.log('making game with '+playerCount+' players.');
@@ -50,12 +50,12 @@ function makeGame(playerCount) {
     moves: {
       ...Planting.moves(),
       pass(G, ctx){
-        ctx.events.endPhase();
+        ctx.events.endPhase('planting');
         return G;
       },
       pot(G,ctx,cards,pot){
-        var selected = potting.sanitize(cards);
-        if (!potting.validate(
+        var selected = Potting.sanitize(cards);
+        if (!Potting.validate(
           selected,
           G.players[ctx.currentPlayer].privateGarden,
           G.communityGarden
