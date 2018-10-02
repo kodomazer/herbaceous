@@ -1,14 +1,21 @@
 import GameUtil from './util';
 
 var Planting = {
-  Moves(){
+  moves(){
     return moves;
   },
-  MoveNames(){
-    return [
-      'plantPrivate',
-      'plantCommunity',
-    ];
+  phase(){
+    return {
+      name: "planting",
+      allowedMoves: [
+        'plantPrivate',
+        'plantCommunity',
+      ],
+      onTurnBegin:(G, ctx)=>{
+        var draw = GameUtil.drawCard(G.deck);
+        return {...G,deck:draw.deck,activeCard:draw.card};
+      },
+    };
   }
 }
 

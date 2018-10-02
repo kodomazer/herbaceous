@@ -1,7 +1,6 @@
 import { Game } from 'boardgame.io/core';
 import potting from './potting';
 import Planting from './planting';
-import GameUtil from './util';
 
 function makeGame(playerCount) {
   console.log('making game with '+playerCount+' players.');
@@ -49,7 +48,7 @@ function makeGame(playerCount) {
     },
 
     moves: {
-      ...Planting.Moves(),
+      ...Planting.moves(),
       pass(G, ctx){
         ctx.events.endPhase();
         return G;
@@ -97,21 +96,14 @@ function makeGame(playerCount) {
           }
         },
         {
-          name: "potting-phase",
+          name: "potting",
           allowedMoves: [
             'pot',
             'select',
             'pass',
           ],
         },
-        {
-          name: "planting",
-          allowedMoves: Planting.MoveNames(),
-          onTurnBegin:(G, ctx)=>{
-            var draw = GameUtil.drawCard(G.deck);
-            return {...G,deck:draw.deck,activeCard:draw.card};
-          },
-        },
+        Planting.phase(),
       ],
     },
   });
