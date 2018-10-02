@@ -49,43 +49,7 @@ function makeGame(playerCount) {
 
     moves: {
       ...Planting.moves(),
-      pass(G, ctx){
-        ctx.events.endPhase('planting');
-        return G;
-      },
-      pot(G,ctx,cards,pot){
-        var selected = Potting.sanitize(cards);
-        if (!Potting.validate(
-          selected,
-          G.players[ctx.currentPlayer].privateGarden,
-          G.communityGarden
-        )) {
-          return;
-        }
-        //TODO: Pot plants if valid
-        var player = {...G.players[ctx.currentPlayer]};
-        player[pot] = selected;
-        player.privateGarden = player.privateGarden.filter(
-          (card) =>{
-            return selected.reduce((acc,sCard)=>{
-              return acc && (sCard.type!==card.type || sCard.id !== card.id)
-            },
-            true)
-          }
-        )
-        var publicGarden = G.publicGarden.filter(
-          (card) =>{
-            return selected.reduce((acc,sCard)=>{
-              return acc && (sCard.type!==card.type || sCard.id !== card.id)
-            },
-            true)
-          }
-        )
-        var players = {...G.players};
-        players[ctx.currentPlayer] = player;
-        return {...G,players,publicGarden};
-        
-      }
+      ...Potting.moves(),
     },
     flow: {
       phases:[
@@ -95,14 +59,7 @@ function makeGame(playerCount) {
             return {...G,deck:ctx.random.Shuffle(G.deck)};
           }
         },
-        {
-          name: "potting",
-          allowedMoves: [
-            'pot',
-            'select',
-            'pass',
-          ],
-        },
+        Potting.phase(),
         Planting.phase(),
       ],
     },
