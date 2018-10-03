@@ -5,14 +5,15 @@ var Potting = {
     return moves;
   },
   phase(){
-    return {
-      name: "potting",
-      allowedMoves: [
-        'pot',
-        'select',
-        'pass',
-      ],
-    };
+    return [
+      {
+        name: "potting",
+        allowedMoves: [
+          'pot',
+          'pass',
+        ],
+      },
+    ];
   },
 }
 

@@ -50,6 +50,10 @@ function makeGame(playerCount) {
     moves: {
       ...Planting.moves(),
       ...Potting.moves(),
+      startPhaseMove: (G,ctx) => {
+        ctx.events.endPhase('startPhase');
+        return G;
+      }
     },
     flow: {
       phases:[
@@ -57,10 +61,11 @@ function makeGame(playerCount) {
           name: "startGame",
           onTurnBegin:(G,ctx)=>{
             return {...G,deck:ctx.random.Shuffle(G.deck)};
-          }
+          },
+          allowedMoves: ['startPhaseMove'],
         },
-        Potting.phase(),
-        Planting.phase(),
+        ...Potting.phase(),
+        ...Planting.phase(),
       ],
     },
   });
