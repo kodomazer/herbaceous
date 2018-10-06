@@ -1,12 +1,21 @@
 import React from 'react';
 import Garden from './garden';
+const noop = ()=>{}
 
-export default ({onSelect, player: {id, privateGarden}={}, self}) => (
+export default ({onSelect, onSelectCard=noop, onSelectPot=noop, player: {id, privateGarden, ...pots}={}, self}) => (
   <div onClick={()=>{}/*onSelect*/}>
     <Garden
       gardenName={self ? 'Your Garden' : 'Player ' + id + '\'s Private Garden'}
       onSelect={onSelect}
+      onSelectCard={onSelectCard}
       herbs={privateGarden}/>
-    {/*render pots*/}
+    {pots.map(
+      ({name, herbs}) => (<Garden
+        gardenName={name}
+        onSelect={onSelectPot}
+        onSelectCard={onSelectCard}
+        herbs={herbs}
+      />)
+    )}
   </div>
 )

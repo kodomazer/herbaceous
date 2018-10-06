@@ -1,7 +1,7 @@
 import React , {Component} from 'react';
 import { Client } from 'boardgame.io/react';
 import makeGame from '../game/makeGame';
-import Board from './board';
+import BoardWrapper from './boardWrapper';
 
 class PassToPlay extends Component {
   constructor(props) {
@@ -9,7 +9,7 @@ class PassToPlay extends Component {
 
     this.ClientWithPlayers = Client({
       game: makeGame(this.props.playerCount),
-      board: Board,
+      board: BoardWrapper,
       // multiplayer: true,
       // debug: false,
     });
